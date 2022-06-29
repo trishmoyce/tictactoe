@@ -9,7 +9,27 @@
 </head>
 
 <body>
-    <h1>Test</h1>
+    <div id="header">
+        <h1>Tic Tac Toe</h1>
+        <div id="results"></div>
+        <button id="newbtn">New Game</button>
+    </div>
+    <div id="playerinfo">
+        <div id="currentplayer">Enter player names to start the game</div>
+        <div id="xplayer">
+            <label for="xplayername">X Player Name</label>
+            <input type="text" id="xplayername" name="xplayername" required>
+            <button class="xsubmitbtn">Submit</button>
+        </div>
+        <div id="oplayer">
+            <label for="oplayername">O Player Name</label>
+            <input type="text" id="oplayername" name="oplayername" required>
+            <button class="osubmitbtn">Submit</button>
+        </div>
+    </div>
+    <div id="gamecontainer">
+        <button id="creategamebtn">Create Gameboard</button>
+    </div>
 </body>
 
 </html>
