@@ -17,10 +17,8 @@ function storeXName() {
     xsubmitbtn.disabled = true;
     if (inputspacex.value == "") {
         theX = player("Player X");
-        //console.log(theX.name);
     } else {
         theX = player(inputspacex.value);
-        //console.log(theX.name);
     }
 }
 
@@ -29,10 +27,8 @@ function storeOName() {
     osubmitbtn.disabled = true;
     if (inputspaceo.value == "") {
         theO = player("Player O");
-        //console.log(theO.name);
     } else {
         theO = player(inputspaceo.value);
-        //console.log(theO.name);
     }
 }
 
@@ -121,12 +117,14 @@ function playGame() {
             playerPicks[i].addEventListener("click", function turn() {
                 if (playerPicks[i].textContent == "") {
                     if (secondPlayerPlay == "stop") {
-                        playerPicks[i].style.backgroundColor = "violet";
+//                        playerPicks[i].style.backgroundColor = "lightgray";
+                        playerPicks[i].style.color = "red";
                         playerPicks[i].textContent = firstPlayer;
                         secondPlayerPlay = "go";
                         displaySecondPlayer();
                     } else if (secondPlayerPlay == "go") {
-                        playerPicks[i].style.backgroundColor = "navy";
+//                        playerPicks[i].style.backgroundColor = "lightgray";
+                        playerPicks[i].style.color = "blue";
                         playerPicks[i].textContent = secondPlayer;
                         secondPlayerPlay = "stop";
                         displayFirstPlayerAgain();
@@ -146,56 +144,40 @@ function reviewMoves() {
     var gbk = gb.children;
     function reviewXMoves() {
         if (gbk[0].textContent === "X" && gbk[1].textContent === "X" && gbk[2].textContent === "X") {
-            console.log("X - top row");
             createXWinnerContainer();
         } else if (gbk[3].textContent === "X" && gbk[4].textContent === "X" && gbk[5].textContent === "X") {
-            console.log("X - middle row");
             createXWinnerContainer();
         } else if (gbk[6].textContent === "X" && gbk[7].textContent === "X" && gbk[8].textContent === "X") {
-            console.log("X - bottom row");
             createXWinnerContainer();
         } else if (gbk[0].textContent === "X" && gbk[3].textContent === "X" && gbk[6].textContent === "X") {
-            console.log("X - first column");
             createXWinnerContainer();
         } else if (gbk[1].textContent === "X" && gbk[4].textContent === "X" && gbk[7].textContent === "X") {
-            console.log("X - second column");
             createXWinnerContainer();
         } else if (gbk[2].textContent === "X" && gbk[5].textContent === "X" && gbk[8].textContent === "X") {
-            console.log("X - third column");
             createXWinnerContainer();
         } else if (gbk[0].textContent === "X" && gbk[4].textContent === "X" && gbk[8].textContent === "X") {
-            console.log("X - diagonal top left to bottom right");
             createXWinnerContainer();
         } else if (gbk[6].textContent === "X" && gbk[4].textContent === "X" && gbk[2].textContent === "X") {
-            console.log("X - diagonal bottom left to top right");
             createXWinnerContainer();
         }
     }
     reviewXMoves();
     function reviewOMoves() {
         if (gbk[0].textContent === "O" && gbk[1].textContent === "O" && gbk[2].textContent === "O") {
-            console.log("O - top row");
             createOWinnerContainer();
         } else if (gbk[3].textContent === "O" && gbk[4].textContent === "O" && gbk[5].textContent === "O") {
-            console.log("O - middle row");
             createOWinnerContainer();
         } else if (gbk[6].textContent === "O" && gbk[7].textContent === "O" && gbk[8].textContent === "O") {
-            console.log("O - bottom row");
             createOWinnerContainer();
         } else if (gbk[0].textContent === "O" && gbk[3].textContent === "O" && gbk[6].textContent === "O") {
-            console.log("O - first column");
             createOWinnerContainer();
         } else if (gbk[1].textContent === "O" && gbk[4].textContent === "O" && gbk[7].textContent === "O") {
-            console.log("O - second column");
             createOWinnerContainer();
         } else if (gbk[2].textContent === "O" && gbk[5].textContent === "O" && gbk[8].textContent === "O") {
-            console.log("O - third column");
             createOWinnerContainer();
         } else if (gbk[0].textContent === "O" && gbk[4].textContent === "O" && gbk[8].textContent === "O") {
-            console.log("O - diagonal top left to bottom right");
             createOWinnerContainer();
         } else if (gbk[6].textContent === "O" && gbk[4].textContent === "O" && gbk[2].textContent === "O") {
-            console.log("O - diagonal bottom left to top right");
             createOWinnerContainer();
         }
     }
@@ -207,6 +189,7 @@ function reviewMoves() {
 function createXWinnerContainer() {
     removeFirstContainer();
     var winnerdiv = document.createElement("div");
+    winnerdiv.classList.add("winnerdiv");
     gamecontainer.appendChild(winnerdiv);
     winnerdiv.textContent = `X Wins! Congratulations, ${theX.name}!`;
     currentplayer.textContent = "Click 'New Game' to play again";
@@ -215,6 +198,7 @@ function createXWinnerContainer() {
 function createOWinnerContainer() {
     removeFirstContainer();
     var winnerdiv = document.createElement("div");
+    winnerdiv.classList.add("winnerdiv");
     gamecontainer.appendChild(winnerdiv);
     winnerdiv.textContent = `O Wins! Congratulations, ${theO.name}!`;
     currentplayer.textContent = "Click 'New Game' to play again";
@@ -243,7 +227,7 @@ function clearPlayerInfo() {
 function newGame() {
     clearPlayerInfo();
     removeFirstContainer();
-    createGameboard()
+    gamecontainer.appendChild(creategamebtn);
 }
 
 function removeFirstContainer() {
