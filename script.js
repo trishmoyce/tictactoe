@@ -117,13 +117,11 @@ function playGame() {
             playerPicks[i].addEventListener("click", function turn() {
                 if (playerPicks[i].textContent == "") {
                     if (secondPlayerPlay == "stop") {
-//                        playerPicks[i].style.backgroundColor = "lightgray";
                         playerPicks[i].style.color = "red";
                         playerPicks[i].textContent = firstPlayer;
                         secondPlayerPlay = "go";
                         displaySecondPlayer();
                     } else if (secondPlayerPlay == "go") {
-//                        playerPicks[i].style.backgroundColor = "lightgray";
                         playerPicks[i].style.color = "blue";
                         playerPicks[i].textContent = secondPlayer;
                         secondPlayerPlay = "stop";
@@ -138,53 +136,128 @@ function playGame() {
 playGame();
 
 // DETERMINE WINNERS
+var toprow;
+var middlerow;
+var bottomrow;
+var firstcolumn;
+var secondcolumn;
+var thirdcolumn;
+var diagonaltlbr;
+var diagonalbltr;
 
 function reviewMoves() {
     var gb = document.getElementById("gameboard");
     var gbk = gb.children;
-    function reviewXMoves() {
-        if (gbk[0].textContent === "X" && gbk[1].textContent === "X" && gbk[2].textContent === "X") {
-            createXWinnerContainer();
-        } else if (gbk[3].textContent === "X" && gbk[4].textContent === "X" && gbk[5].textContent === "X") {
-            createXWinnerContainer();
-        } else if (gbk[6].textContent === "X" && gbk[7].textContent === "X" && gbk[8].textContent === "X") {
-            createXWinnerContainer();
-        } else if (gbk[0].textContent === "X" && gbk[3].textContent === "X" && gbk[6].textContent === "X") {
-            createXWinnerContainer();
-        } else if (gbk[1].textContent === "X" && gbk[4].textContent === "X" && gbk[7].textContent === "X") {
-            createXWinnerContainer();
-        } else if (gbk[2].textContent === "X" && gbk[5].textContent === "X" && gbk[8].textContent === "X") {
-            createXWinnerContainer();
-        } else if (gbk[0].textContent === "X" && gbk[4].textContent === "X" && gbk[8].textContent === "X") {
-            createXWinnerContainer();
-        } else if (gbk[6].textContent === "X" && gbk[4].textContent === "X" && gbk[2].textContent === "X") {
-            createXWinnerContainer();
+    function testTopRow() {
+        if (gbk[0].textContent !== "" && gbk[1].textContent !== "" && gbk[2].textContent !== "") {
+            if (gbk[0].textContent === "X" && gbk[1].textContent === "X" && gbk[2].textContent === "X") {
+                toprow = "xwinstoprow";
+            } else if (gbk[0].textContent === "O" && gbk[1].textContent === "O" && gbk[2].textContent === "O") {
+                toprow = "owinstoprow";
+            } else {
+                toprow = "drawtoprow";
+            }
         }
     }
-    reviewXMoves();
-    function reviewOMoves() {
-        if (gbk[0].textContent === "O" && gbk[1].textContent === "O" && gbk[2].textContent === "O") {
-            createOWinnerContainer();
-        } else if (gbk[3].textContent === "O" && gbk[4].textContent === "O" && gbk[5].textContent === "O") {
-            createOWinnerContainer();
-        } else if (gbk[6].textContent === "O" && gbk[7].textContent === "O" && gbk[8].textContent === "O") {
-            createOWinnerContainer();
-        } else if (gbk[0].textContent === "O" && gbk[3].textContent === "O" && gbk[6].textContent === "O") {
-            createOWinnerContainer();
-        } else if (gbk[1].textContent === "O" && gbk[4].textContent === "O" && gbk[7].textContent === "O") {
-            createOWinnerContainer();
-        } else if (gbk[2].textContent === "O" && gbk[5].textContent === "O" && gbk[8].textContent === "O") {
-            createOWinnerContainer();
-        } else if (gbk[0].textContent === "O" && gbk[4].textContent === "O" && gbk[8].textContent === "O") {
-            createOWinnerContainer();
-        } else if (gbk[6].textContent === "O" && gbk[4].textContent === "O" && gbk[2].textContent === "O") {
-            createOWinnerContainer();
+    function testMiddleRow() {
+        if (gbk[3].textContent !== "" && gbk[4].textContent !== "" && gbk[5].textContent !== "") {
+            if (gbk[3].textContent === "X" && gbk[4].textContent === "X" && gbk[5].textContent === "X") {
+                middlerow = "xwinsmiddlerow";
+            } else if (gbk[3].textContent === "O" && gbk[4].textContent === "O" && gbk[5].textContent === "O") {
+                middlerow = "owinsmiddlerow";
+            } else {
+                middlerow = "drawmiddlerow";
+            }
         }
     }
-    reviewOMoves();
+    function testBottomRow() {
+        if (gbk[6].textContent !== "" && gbk[7].textContent !== "" && gbk[8].textContent !== "") {
+            if (gbk[6].textContent === "X" && gbk[7].textContent === "X" && gbk[8].textContent === "X") {
+                bottomrow = "xwinsbottomrow";
+            } else if (gbk[7].textContent === "O" && gbk[7].textContent === "O" && gbk[8].textContent === "O") {
+                bottomrow = "owinsbottomrow";
+            } else {
+                bottomrow = "drawbottomrow";
+            }
+        }
+    }
+    function testFirstColumn() {
+        if (gbk[0].textContent !== "" && gbk[3].textContent !== "" && gbk[6].textContent !== "") {
+            if (gbk[0].textContent === "X" && gbk[3].textContent === "X" && gbk[6].textContent === "X") {
+                firstcolumn = "xwinsfirstcolumn";
+            } else if (gbk[0].textContent === "O" && gbk[3].textContent === "O" && gbk[6].textContent === "O") {
+                firstcolumn = "owinsfirstcolumn";
+            } else {
+                firstcolumn = "drawfirstcolumn";
+            }
+        }
+    }
+    function testSecondColumn() {
+        if (gbk[1].textContent !== "" && gbk[4].textContent !== "" && gbk[7].textContent !== "") {
+            if (gbk[1].textContent === "X" && gbk[4].textContent === "X" && gbk[7].textContent === "X") {
+                secondcolumn = "xwinssecondcolumn";
+            } else if (gbk[1].textContent === "O" && gbk[4].textContent === "O" && gbk[7].textContent === "O") {
+                secondcolumn = "owinssecondcolumn";
+            } else {
+                secondcolumn = "drawsecondcolumn";
+            }
+        }
+    }
+    function testThirdColumn() {
+        if (gbk[2].textContent !== "" && gbk[5].textContent !== "" && gbk[8].textContent !== "") {
+            if (gbk[2].textContent === "X" && gbk[5].textContent === "X" && gbk[8].textContent === "X") {
+                thirdcolumn = "xwinsthirdcolumn";
+            } else if (gbk[2].textContent === "O" && gbk[5].textContent === "O" && gbk[8].textContent === "O") {
+                thirdcolumn = "owinsthirdcolumn";
+            } else {
+                thirdcolumn = "drawthirdcolumn";
+            }
+        }
+    }
+    function testDiagonalTLBR() {
+        if (gbk[0].textContent !== "" && gbk[4].textContent !== "" && gbk[8].textContent !== "") {
+            if (gbk[0].textContent === "X" && gbk[4].textContent === "X" && gbk[8].textContent === "X") {
+                diagonaltlbr = "xwinsdiagonaltlbr";
+            } else if (gbk[0].textContent === "O" && gbk[4].textContent === "O" && gbk[8].textContent === "O") {
+                diagonaltlbr = "owinsdiagonaltlbr";
+            } else {
+                diagonaltlbr = "drawdiagonaltlbr";
+            }
+        }
+    }
+    function testDiagonalBLTR() {
+        if (gbk[6].textContent !== "" && gbk[4].textContent !== "" && gbk[2].textContent !== "") {
+            if (gbk[6].textContent === "X" && gbk[4].textContent === "X" && gbk[2].textContent === "X") {
+                diagonalbltr = "xwinsdiagonalbltr";
+            } else if (gbk[6].textContent === "O" && gbk[4].textContent === "O" && gbk[2].textContent === "O") {
+                diagonalbltr = "owinsdiagonalbltr";
+            } else {
+                diagonalbltr = "drawdiagonalbltr";
+            }
+        }
+    }
+    testTopRow();
+    testMiddleRow();
+    testBottomRow();
+    testFirstColumn();
+    testSecondColumn();
+    testThirdColumn();
+    testDiagonalTLBR();
+    testDiagonalBLTR();
+    declareWinner();
 }
 
 // DECLARES A WINNER
+
+function declareWinner() {
+    if (toprow == "xwinstoprow" ||  middlerow == "xwinsmiddlerow" || bottomrow == "xwinsbottomrow" || firstcolumn == "xwinsfirstcolumn" || secondcolumn == "xwinssecondcolumn" || thirdcolumn == "xwinsthirdcolumn" || diagonaltlbr == "xwinsdiagonaltlbr" || diagonalbltr == "xwinsdiagonalbltr") {
+        createXWinnerContainer();
+    } else if (toprow == "owinstoprow" || middlerow == "owinsmiddlerow" || bottomrow == "owinsbottomrow" || firstcolumn == "owinsfirstcolumn" || secondcolumn == "owinssecondcolumn" || thirdcolumn == "owinsthirdcolumn" || diagonaltlbr == "owinsdiagonaltlbr" || diagonalbltr == "owinsdiagonalbltr") {
+        createOWinnerContainer();
+    } else if (toprow == "drawtoprow" && middlerow == "drawmiddlerow" && bottomrow == "drawbottomrow" && "drawfirstcolumn" && secondcolumn == "drawsecondcolumn" && thirdcolumn == "drawthirdcolumn" && diagonaltlbr == "drawdiagonaltlbr" && diagonalbltr == "drawdiagonalbltr") {
+        createDrawContainer();
+    }
+}
 
 function createXWinnerContainer() {
     removeFirstContainer();
@@ -204,7 +277,16 @@ function createOWinnerContainer() {
     currentplayer.textContent = "Click 'New Game' to play again";
 };
 
-// RESETS THE GAME
+function createDrawContainer() {
+    removeFirstContainer();
+    var winnerdiv = document.createElement("div");
+    winnerdiv.classList.add("winnerdiv");
+    gamecontainer.appendChild(winnerdiv);
+    winnerdiv.textContent = "Draw!";
+    currentplayer.textContent = "Click 'New Game' to play again";
+}
+
+// CLEARS THE GAME BOARD AND PLAYERS' NAMES
 
 const newbtn = document.querySelector("#newbtn");
 
@@ -215,13 +297,25 @@ function clearPlayerInfo() {
         document.querySelector("#xplayername").value = ""
         theX = player("Player X");
     }
-    clearX();
+
     function clearO() {
         osubmitbtn.disabled = false;
         document.querySelector("#oplayername").value = ""
         theO = player("Player O");
     }    
+    function clearXOVariables() {
+        toprow = "";
+        middlerow = "";
+        bottomrow = "";
+        firstcolumn = "";
+        secondcolumn = "";
+        thirdcolumn = "";
+        diagonaltlbr = "";
+        diagonalbltr = "";
+    }
+    clearX();
     clearO();
+    clearXOVariables();
 }
 
 function newGame() {
